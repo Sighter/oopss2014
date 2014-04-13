@@ -3,8 +3,17 @@ import Tools.IO.*;
 import java.io.*;
 import java.util.Arrays;
 
+
+/**
+ * class for incapsulating the cli-components of the KimSpiel
+ * you can basicly play the game with this class
+ */
 public class KimSpielDialog {
 
+    /**
+     * main method of the class for the purpose of testing
+     * @param args cli input arguments
+     */
     public static void main(String[] args) {
         System.out.println("Testing run once");
 
@@ -16,12 +25,17 @@ public class KimSpielDialog {
 
     /**
      * constructor
-     * @return [description]
+     * @return the object
      */
     public KimSpielDialog() {
 
     }
 
+    /**
+     * this method creates a new KimSpiel instance and guides
+     * the player through the game
+     * @return if the player has won true, otherwise false
+     */
     public boolean runOnce() {
 
         this.game = new KimSpiel();
@@ -70,11 +84,23 @@ public class KimSpielDialog {
         // }
     }
     
+    /**
+     * this method prints out the number on the screen
+     * @param the number
+     */
     private void showNumber(int [] number) {
          System.out.println("Merken sie sich folgende " + 
             number.length +"-stellige Nummer: " + this.getArrayAsString(number));
     }
     
+    /**
+     * this methods reads a number from the command line
+     * and converts it into the right format
+     * 
+     * @param the maximum length in chars the method should read
+     * @throws NumberFormatException Is thrown if the user enters non-digits
+     * @return the array with the numbers in it
+     */
     private int[] readNumber(int maxLength) {
         
         boolean inputCorrect = false;
@@ -94,10 +120,18 @@ public class KimSpielDialog {
         return returnArray;
     }
 
+    /**
+     * clears the screen by shifting up 200 lines
+     */
     private void clearScreen() {
         for (int i = 0; i < 200; ++i) System.out.println();
     }
 
+    /**
+     * joins an array together to a string representation
+     * @param the array
+     * @return the string
+     */
     private String getArrayAsString(int[] array) {
 
         String joinedString = "";
