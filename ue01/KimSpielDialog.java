@@ -17,18 +17,28 @@ public class KimSpielDialog {
     public static void main(String[] args) {
         System.out.println("Testing run once");
 
-        KimSpielDialog dialog = new KimSpielDialog();
-        dialog.runOnce();
+        KimSpielDialog dialog = new KimSpielDialog(2000);
+        dialog.loopPlay();
     }
 
+    /**
+     * attribute to hold the current game
+     */
     private KimSpiel game;
 
     /**
+     * config to set the waitTime, see constructor
+     */
+    private int waitTime;
+
+    /**
      * constructor
+     *
+     * @param waitTime the time to wait between showing number and user input in milliseconds
      * @return the object
      */
-    public KimSpielDialog() {
-
+    public KimSpielDialog(int waitTime) {
+        this.waitTime = waitTime;
     }
 
     /**
@@ -39,49 +49,81 @@ public class KimSpielDialog {
     public boolean runOnce() {
 
         this.game = new KimSpiel();
-        int[] number = this.game.getNextNumber();
-        int[] inputNumber = {};
-        boolean inputFailed = true;
-
         System.out.println("Sie haben ein neues Kimspiel gestartet.");
-        
-        this.showNumber(number);
 
-        try {
-            Thread.sleep(3000);
-        } catch (InterruptedException e) { 
-        }
 
-        this.clearScreen();
+        /**
+         * mainloop for one game
+         */
+        while (true) {
 
-        while(inputFailed) {
+            int[] number = this.game.getNextNumber();
+            int[] inputNumber = {};
+            boolean inputFailed = true;
+            
+            this.showNumber(number);
+
             try {
-                inputNumber = this.readNumber(number.length);
-                inputFailed = false;
-            } catch (NumberFormatException e) {
-                System.out.println("Die eingegebene Zahl hat ein ungültiges Format");
-                inputFailed = true;
+                Thread.sleep(this.waitTime);
+            } catch (InterruptedException e) { 
             }
-        }
-        
-        if (this.game.validateLastNumber(inputNumber) == true) {
-            System.out.println("Richtig");
-            return true;
-        } else {
-            System.out.println("Falsch");
-            return false;
+
+            this.clearScreen();
+
+            while(inputFailed) {
+                try {
+                    inputNumber = this.readNumber(number.length);
+                    inputFailed = false;
+                } catch (NumberFormatException e) {
+                    System.out.println("Die eingegebene Zahl hat ein ungültiges Format");
+                    inputFailed = true;
+                }
+            }
+            
+            if (this.game.validateLastNumber(inputNumber) == true) {
+                System.out.println("Richtig");
+                //return true;
+            } else {
+                System.out.println("Falsch");
+                return false;
+            }
+
+            if (number.length == this.game.getMaxDigits())
+                return true;
         }
     }
 
+    /**
+     * method which lets the player play continuesly
+     * this asks the player whether he wants to play again or not
+     */
     public void loopPlay() {
-        // boolean playerWantsToPlayAgain = true;
+        boolean playerWantsToPlayAgain = true;
         
-        // while(playerWantsToPlayAgain) {
+        while(playerWantsToPlayAgain) {
 
-        //     boolean playerHasWon = this.runOnce();
+            boolean playerHasWon = this.runOnce();
 
-        //     if (playerHasWon) 
-        // }
+            if (playerHasWon == true)
+                System.out.println("Herzlichen Glückwunsch, sie haben gewonnen!");
+            else
+                System.out.println("Boooooo, sie haben verloren!");
+
+            char choiceInput = ' ';
+
+            while(true) {
+                choiceInput = IOTools.readChar("Möchten sie noch einmal spielen? (j/n): ");
+
+                if (choiceInput == 'n') {
+                    playerWantsToPlayAgain = false;
+                    break;
+                } else if (choiceInput == 'j') {
+                    break;
+                } else {
+                    continue;
+                }
+            }
+        }
     }
     
     /**
