@@ -32,6 +32,11 @@ public class KimSpielDialog {
     private int waitTime;
 
     /**
+     * store for digits, the user has reached finally
+     */
+    private int lastReachedDigits;
+
+    /**
      * constructor
      *
      * @param waitTime the time to wait between showing number and user input in milliseconds
@@ -88,12 +93,15 @@ public class KimSpielDialog {
                 //return true;
             } else {
                 System.out.println("Falsch");
+                this.lastReachedDigits = number.length - 1;
                 return false;
             }
 
             /* game winning condition */
-            if (number.length == this.game.getMaxDigits())
+            if (number.length == this.game.getMaxDigits()) {
+                this.lastReachedDigits = number.length;
                 return true;
+            }
         }
     }
 
@@ -107,6 +115,8 @@ public class KimSpielDialog {
         while(playerWantsToPlayAgain) {
 
             boolean playerHasWon = this.runOnce();
+
+            System.out.println("Sie haben " + this.lastReachedDigits + " Stellen erreicht.");
 
             if (playerHasWon == true)
                 System.out.println("Herzlichen Glückwunsch, sie haben gewonnen!");
