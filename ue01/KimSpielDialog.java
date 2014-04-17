@@ -63,6 +63,7 @@ public class KimSpielDialog {
             
             this.showNumber(number);
 
+            /* this sleeps the given wait time */
             try {
                 Thread.sleep(this.waitTime);
             } catch (InterruptedException e) { 
@@ -70,6 +71,7 @@ public class KimSpielDialog {
 
             this.clearScreen();
 
+            /* catch any false input format here */
             while(inputFailed) {
                 try {
                     inputNumber = this.readNumber(number.length);
@@ -80,6 +82,7 @@ public class KimSpielDialog {
                 }
             }
             
+            /* fetch result */
             if (this.game.validateLastNumber(inputNumber) == true) {
                 System.out.println("Richtig");
                 //return true;
@@ -88,6 +91,7 @@ public class KimSpielDialog {
                 return false;
             }
 
+            /* game winning condition */
             if (number.length == this.game.getMaxDigits())
                 return true;
         }
@@ -109,6 +113,7 @@ public class KimSpielDialog {
             else
                 System.out.println("Boooooo, sie haben verloren!");
 
+            /* let the player choose, to play again */
             char choiceInput = ' ';
 
             while(true) {
@@ -149,6 +154,7 @@ public class KimSpielDialog {
         String input;
         int[] returnArray = new int[maxLength];
 
+        /* read string and convert it to an integer */
         input = IOTools.readString("Bitte geben sie jetzt die Zahl ein: ");
         
         for (int idx = 0; idx < input.length() && idx < maxLength; idx++) {
