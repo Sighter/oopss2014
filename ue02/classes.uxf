@@ -1,136 +1,287 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <diagram program="umlet" version="12.2">
-  <zoom_level>10</zoom_level>
+  <zoom_level>8</zoom_level>
   <element>
     <type>com.umlet.element.Class</type>
     <coordinates>
-      <x>420</x>
-      <y>340</y>
-      <w>270</w>
-      <h>160</h>
+      <x>656</x>
+      <y>368</y>
+      <w>216</w>
+      <h>128</h>
     </coordinates>
-    <panel_attributes>PetrolPumpQueue: Queue&lt;Car&gt;</panel_attributes>
+    <panel_attributes>*PetrolPumpQueue: Queue&lt;Car&gt;*
+--
+</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <type>com.umlet.element.Class</type>
     <coordinates>
-      <x>470</x>
-      <y>40</y>
-      <w>220</w>
-      <h>150</h>
-    </coordinates>
-    <panel_attributes>FuelStation</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <type>com.umlet.element.Class</type>
-    <coordinates>
-      <x>80</x>
-      <y>340</y>
-      <w>280</w>
-      <h>160</h>
-    </coordinates>
-    <panel_attributes>CashDeskQueue: Queue&lt;Driver&gt;</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <type>com.umlet.element.Class</type>
-    <coordinates>
-      <x>80</x>
-      <y>580</y>
-      <w>280</w>
-      <h>170</h>
-    </coordinates>
-    <panel_attributes>Car</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <type>com.umlet.element.Class</type>
-    <coordinates>
-      <x>420</x>
-      <y>580</y>
-      <w>270</w>
-      <h>170</h>
-    </coordinates>
-    <panel_attributes>Driver</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <type>com.umlet.element.Relation</type>
-    <coordinates>
-      <x>190</x>
-      <y>470</y>
-      <w>50</w>
-      <h>130</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes>
-    <additional_attributes>30;30;30;110</additional_attributes>
-  </element>
-  <element>
-    <type>com.umlet.element.Relation</type>
-    <coordinates>
-      <x>530</x>
-      <y>470</y>
-      <w>50</w>
-      <h>130</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes>
-    <additional_attributes>30;30;30;110</additional_attributes>
-  </element>
-  <element>
-    <type>com.umlet.element.Class</type>
-    <coordinates>
-      <x>850</x>
-      <y>40</y>
-      <w>220</w>
-      <h>150</h>
-    </coordinates>
-    <panel_attributes>Protocol</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <type>com.umlet.element.Relation</type>
-    <coordinates>
-      <x>550</x>
+      <x>504</x>
       <y>160</y>
-      <w>50</w>
-      <h>200</h>
+      <w>176</w>
+      <h>120</h>
     </coordinates>
-    <panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes>
-    <additional_attributes>30;30;30;180</additional_attributes>
-  </element>
-  <element>
-    <type>com.umlet.element.Relation</type>
-    <coordinates>
-      <x>180</x>
-      <y>110</y>
-      <w>310</w>
-      <h>250</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes>
-    <additional_attributes>290;30;30;230</additional_attributes>
-  </element>
-  <element>
-    <type>com.umlet.element.Relation</type>
-    <coordinates>
-      <x>330</x>
-      <y>630</y>
-      <w>110</w>
-      <h>50</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
-    <additional_attributes>30;30;90;30</additional_attributes>
+    <panel_attributes>*FuelStation*
+--
+--
+- processIncomingCars()
+- processFuelPumps()
+- processFuelPump(Queue&lt;Car&gt;)
+- processCashDesk()
++ process()</panel_attributes>
+    <additional_attributes/>
   </element>
   <element>
     <type>com.umlet.element.Class</type>
     <coordinates>
-      <x>850</x>
-      <y>340</y>
-      <w>220</w>
-      <h>150</h>
+      <x>336</x>
+      <y>368</y>
+      <w>224</w>
+      <h>128</h>
     </coordinates>
-    <panel_attributes>Simulation</panel_attributes>
+    <panel_attributes>*CashDeskQueue: Queue&lt;Driver&gt;*
+--</panel_attributes>
     <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>336</x>
+      <y>560</y>
+      <w>224</w>
+      <h>136</h>
+    </coordinates>
+    <panel_attributes>*Car*
+--
+- fuelTime : int
+- timeAble : TimeAble
+- driverOnCar : boolean = true
+--
++ driverOnCar() : boolean
++ removeDriver() : Driver
++ addDriver(driver Driver)
++ (accessors methods)
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>656</x>
+      <y>560</y>
+      <w>216</w>
+      <h>136</h>
+    </coordinates>
+    <panel_attributes>*Driver*
+--
+- cashDeskTime : int
+- leavingTime : int
+- timeAble : TimeAble
+--
++ (accessors methods)
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>416</x>
+      <y>472</y>
+      <w>40</w>
+      <h>104</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>24;24;24;88</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>760</x>
+      <y>472</y>
+      <w>40</w>
+      <h>104</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>24;24;24;88</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>352</x>
+      <y>0</y>
+      <w>408</w>
+      <h>120</h>
+    </coordinates>
+    <panel_attributes>*Protocol*
+--
++ writeLine(currentTime int, c1, c2, c3, c4)
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>656</x>
+      <y>216</y>
+      <w>144</w>
+      <h>168</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;-
+m1=1
+m2=3</panel_attributes>
+    <additional_attributes>24;24;128;152</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>416</x>
+      <y>216</y>
+      <w>104</w>
+      <h>168</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;-
+m1=1
+m2=1</panel_attributes>
+    <additional_attributes>88;24;24;152</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>536</x>
+      <y>600</y>
+      <w>136</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-
+m1=1
+m2=1</panel_attributes>
+    <additional_attributes>24;24;120;24</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>40</x>
+      <y>128</y>
+      <w>224</w>
+      <h>120</h>
+    </coordinates>
+    <panel_attributes>*Simulation*
+- timeAbles : LinkedList
+--
++ init()
++ simLoop()
++ createRegisteredTimeAble(): TimeAble
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>336</x>
+      <y>800</y>
+      <w>224</w>
+      <h>136</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;Interface&gt;&gt;
+*TimeAbleAccess*
+--
++ getTimeAble() : TimeAble
++ setTimeAble(tm TimeAble)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>40</x>
+      <y>560</y>
+      <w>224</w>
+      <h>136</h>
+    </coordinates>
+    <panel_attributes>*TimeAble*
+--
+- locked : boolean
+- remainingLockingTime: int
+--
++ lock(time int)
++ isLocked() : boolean
++ setLockTime(time int)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>416</x>
+      <y>672</y>
+      <w>40</w>
+      <h>144</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>24;24;24;128</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>456</x>
+      <y>672</y>
+      <w>344</w>
+      <h>144</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>328;24;24;128</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>40</x>
+      <y>320</y>
+      <w>224</w>
+      <h>136</h>
+    </coordinates>
+    <panel_attributes>*CarFactory*
+--
+--
+- randomizeFuelTime() : int
+- randomizeCashDeskTime() : int
+- randomizeLeavingTime() : int
++ createDriver()
++ createCar()
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>240</x>
+      <y>168</y>
+      <w>280</w>
+      <h>56</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>24;24;264;40</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>128</x>
+      <y>200</y>
+      <w>392</w>
+      <h>136</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>24;120;376;24</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>128</x>
+      <y>16</y>
+      <w>240</w>
+      <h>128</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>24;112;224;24</additional_attributes>
   </element>
 </diagram>
