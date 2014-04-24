@@ -17,31 +17,14 @@
   <element>
     <type>com.umlet.element.Class</type>
     <coordinates>
-      <x>504</x>
-      <y>160</y>
-      <w>176</w>
-      <h>120</h>
-    </coordinates>
-    <panel_attributes>*FuelStation*
---
---
-- processIncomingCars()
-- processFuelPumps()
-- processFuelPump(Queue&lt;Car&gt;)
-- processCashDesk()
-+ process()</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <type>com.umlet.element.Class</type>
-    <coordinates>
       <x>336</x>
       <y>368</y>
       <w>224</w>
       <h>128</h>
     </coordinates>
     <panel_attributes>*CashDeskQueue: Queue&lt;Driver&gt;*
---</panel_attributes>
+--
+</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
@@ -57,8 +40,10 @@
 - fuelTime : int
 - timeAble : TimeAble
 - driverOnCar : boolean = true
+- fueledUp : boolean = false
 --
 + driverOnCar() : boolean
++ isFueledUp() : boolean
 + removeDriver() : Driver
 + addDriver(driver Driver)
 + (accessors methods)
@@ -124,15 +109,15 @@
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>656</x>
+      <x>720</x>
       <y>216</y>
-      <w>144</w>
+      <w>80</w>
       <h>168</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;-
 m1=1
 m2=3</panel_attributes>
-    <additional_attributes>24;24;128;152</additional_attributes>
+    <additional_attributes>24;24;64;152</additional_attributes>
   </element>
   <element>
     <type>com.umlet.element.Relation</type>
@@ -165,7 +150,7 @@ m2=1</panel_attributes>
     <coordinates>
       <x>40</x>
       <y>128</y>
-      <w>224</w>
+      <w>256</w>
       <h>120</h>
     </coordinates>
     <panel_attributes>*Simulation*
@@ -174,6 +159,7 @@ m2=1</panel_attributes>
 + init()
 + simLoop()
 + createRegisteredTimeAble(): TimeAble
++ increaseAllTimeAbles()
 </panel_attributes>
     <additional_attributes/>
   </element>
@@ -207,7 +193,8 @@ m2=1</panel_attributes>
 --
 + lock(time int)
 + isLocked() : boolean
-+ setLockTime(time int)</panel_attributes>
++ setLockTime(time int)
++ decreaseLockingTime()</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
@@ -236,7 +223,7 @@ m2=1</panel_attributes>
     <type>com.umlet.element.Class</type>
     <coordinates>
       <x>40</x>
-      <y>320</y>
+      <y>336</y>
       <w>224</w>
       <h>136</h>
     </coordinates>
@@ -254,13 +241,13 @@ m2=1</panel_attributes>
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>240</x>
+      <x>272</x>
       <y>168</y>
-      <w>280</w>
+      <w>248</w>
       <h>56</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes>
-    <additional_attributes>24;24;264;40</additional_attributes>
+    <additional_attributes>24;24;232;40</additional_attributes>
   </element>
   <element>
     <type>com.umlet.element.Relation</type>
@@ -268,20 +255,42 @@ m2=1</panel_attributes>
       <x>128</x>
       <y>200</y>
       <w>392</w>
-      <h>136</h>
+      <h>152</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes>
-    <additional_attributes>24;120;376;24</additional_attributes>
+    <additional_attributes>24;136;376;24</additional_attributes>
   </element>
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>128</x>
+      <x>192</x>
       <y>16</y>
-      <w>240</w>
+      <w>176</w>
       <h>128</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes>
-    <additional_attributes>24;112;224;24</additional_attributes>
+    <additional_attributes>24;112;160;24</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>504</x>
+      <y>160</y>
+      <w>240</w>
+      <h>144</h>
+    </coordinates>
+    <panel_attributes>*FuelStation*
+--
+- cashDeskTimeHistory : LinkedList&lt;int&gt;
+- petrolPumpTimeHistory : LinkedList&lt;int&gt;
+--
+- processIncomingCars()
+- processFuelPumps()
+- processFuelPump(Queue&lt;Car&gt;)
+- processCashDesk()
++ process()
++ getCashDeskLength() : int
++ getPetrolPumpLengths() : [int]</panel_attributes>
+    <additional_attributes/>
   </element>
 </diagram>
