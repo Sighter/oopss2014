@@ -233,9 +233,9 @@ m2=1</panel_attributes>
 - randomizeFuelTime() : int
 - randomizeCashDeskTime() : int
 - randomizeLeavingTime() : int
-+ createDriver()
-+ createCar()
-</panel_attributes>
++ createDriver() : Driver
++ createCar() : Car
++ getCar() : Car</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
