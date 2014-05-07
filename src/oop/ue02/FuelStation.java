@@ -39,6 +39,8 @@ public class FuelStation {
 
     /**
      * constructor
+     * TODO: fix list prob see
+     * http://stackoverflow.com/questions/217065/cannot-create-an-array-of-linkedlists-in-java
      */
     public FuelStation() {
         this.petrolPumpQueues = (LinkedList<Car>[]) new LinkedList[this.PETROLPUMPCOUNT];
