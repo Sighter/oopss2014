@@ -1,6 +1,12 @@
 #!/usr/bin/sh
 
-# export all neccessary classpath entries
+# export all necessary classpath entries
+# to use this script run
+# 
+# $ source exportclasspath.sh
+# 
+# from the project root directory or set the basedir
+# correctly
 
 basedir=$(pwd)
 
