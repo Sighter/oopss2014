@@ -7,6 +7,7 @@ import oop.ue02.*;
 
 public class FuelStation {
 
+
     /**
      * the cue to manage the drivers
      * on the cash desk
@@ -17,7 +18,7 @@ public class FuelStation {
      * the cue to manage the cars on the 3
      * petrolpumps
      */
-    private Queue<Car>[] petrolPumpQueues;
+    private ArrayList<Queue<Car>> petrolPumpQueues;
 
     /**
      * count of petrol pumps
@@ -43,39 +44,42 @@ public class FuelStation {
      * http://stackoverflow.com/questions/217065/cannot-create-an-array-of-linkedlists-in-java
      */
     public FuelStation() {
-        this.petrolPumpQueues = (LinkedList<Car>[]) new LinkedList[this.PETROLPUMPCOUNT];
+        this.petrolPumpQueues = new ArrayList<Queue<Car>>(this.PETROLPUMPCOUNT);
 
         for (int idx = 0; idx < this.PETROLPUMPCOUNT; idx++) {
-            this.petrolPumpQueues[idx] = new LinkedList<Car>();
+            System.out.println("init Queue");
+            this.petrolPumpQueues.add(new LinkedList<Car>());
         }
     }
 
-    public int insertCar(Car car) {
+    public Queue<Car> insertCar(Car car) {
         
         /* determine the shortest list and insert the car there */
         
-        int shortestQueueIndex = 0;
-        int minlength = this.petrolPumpQueues[0].size();
+        Queue<Car> shortestCue = this.petrolPumpQueues.get(0);
+        int minlength = shortestCue.size();
 
-        for (int i = 1; i < this.PETROLPUMPCOUNT; i++) {
-            if (this.petrolPumpQueues[i].size() < minlength) {
-                shortestQueueIndex = i;
-                minlength = this.petrolPumpQueues[i].size();
+        for (Queue<Car> q : this.petrolPumpQueues) {
+            if (q.size() < minlength) {
+                shortestCue = q;
+                minlength = q.size();
             }
         }
 
-        this.petrolPumpQueues[shortestQueueIndex].add(car);
+        shortestCue.add(car);
 
-        return shortestQueueIndex;
+        return shortestCue;
     }
 
     public int[] getPetrolPumpLengths() {
 
         int[] sizes = new int[this.PETROLPUMPCOUNT];
+        int idx = 0;
 
-        for (int i = 1; i < this.PETROLPUMPCOUNT; i++)
-            sizes[i] = this.petrolPumpQueues[i].size();
-
+        for (Queue<Car> q : this.petrolPumpQueues) {
+            sizes[idx] = q.size();
+            idx++;
+        }
         return sizes;
     }
     
