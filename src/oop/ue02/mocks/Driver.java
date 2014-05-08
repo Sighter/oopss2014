@@ -1,17 +1,19 @@
-package oop.ue02;
+package oop.ue02.mocks;
 
-import oop.ue02.*;
+import oop.ue02.TimeAble;
+import oop.ue02.DriverIface;
 
-public class DriverStub implements oop.ue02.TimeAbleAccess {
+public class Driver implements DriverIface {
 
     int cashDeskTime;
     int leavingTime;
     TimeAble timeAble;
 
-    DriverStub(TimeAble t) {
+    public Driver() {
         this.cashDeskTime = 30;
         this.leavingTime = 70;
-        this.timeAble = t;
+        //this.timeAble = t;
+        
     }
 
     public TimeAble getTimeAble() {

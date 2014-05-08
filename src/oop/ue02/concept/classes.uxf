@@ -193,7 +193,6 @@ m2=1</panel_attributes>
 --
 + lock(time int)
 + isLocked() : boolean
-+ setLockTime(time int)
 + decreaseLockingTime()</panel_attributes>
     <additional_attributes/>
   </element>

@@ -1,5 +1,7 @@
 package oop.ue02;
 
+import java.lang.RuntimeException;
+
 /**
  * class to make other objects timeable and blockable over
  * a certain time. In our case the unit is simply an integer
@@ -19,25 +21,22 @@ public class TimeAble {
     private int remainingLockingTime;
 
     /**
-     * the time the lock will hold on.
-     * this time will not change in the locking period
-     */
-    private int lockingTime;
-
-    /**
      * constructor
      */
     public TimeAble() {
         this.remainingLockingTime = 0;
         this.locked = false;
-        this.lockingTime = 0;
     }
 
     /**
      * lock the timeable
      * @return the TimeAble
      */
-    public TimeAble lock() {
+    public TimeAble lock(int time) {
+        if (time <= 0)
+            throw new RuntimeException("Invalid Lock Time");
+
+        this.remainingLockingTime = time;
         this.locked = true;
         return this;
     }
@@ -51,21 +50,14 @@ public class TimeAble {
     }
 
     /**
-     * set the time for the lock to hold on
-     * @param time the time
-     * @return the TimeAble
-     */
-    public TimeAble setLockTime(int time) {
-        this.remainingLockingTime = time;
-        this.lockingTime = time;
-        return this;
-    }
-
-    /**
      * this counts down the remaining locking time by one unit
      * @return the new remaining time
      */
     public int decreaseLockingTime() {
+
+        if (this.remainingLockingTime == 0)
+           throw new RuntimeException("decreased timeable from 0");
+
         this.remainingLockingTime -= 1;
 
         if (this.remainingLockingTime == 0)
