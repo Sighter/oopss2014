@@ -11,16 +11,18 @@ import org.junit.runners.JUnit4;
 
 import oop.ue02.FuelStation;
 
-import oop.ue02.mocks.Car;
-import oop.ue02.mocks.CarFactory;
+import oop.ue02.Car;
+import oop.ue02.CarFactory;
+import oop.ue02.Simulation;
 
 @RunWith(JUnit4.class)
 public class FuelStationTest {
 
     @Test
     public void shouldBeAbleToInsertCars() {
+        Simulation sim = new Simulation();
 
-        CarFactory cf = new CarFactory();
+        CarFactory cf = new CarFactory(sim);
         
         FuelStation f = new FuelStation(cf);
         
@@ -44,7 +46,8 @@ public class FuelStationTest {
     @Test
     public void shouldBeAbleToProcessFuelpumps() {
 
-        CarFactory cf = new CarFactory();
+        Simulation sim = new Simulation();
+        CarFactory cf = new CarFactory(sim);
 
         FuelStation f = new FuelStation(cf);
 

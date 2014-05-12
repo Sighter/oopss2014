@@ -60,9 +60,22 @@ public class TimeAble {
 
         this.remainingLockingTime -= 1;
 
-        if (this.remainingLockingTime == 0)
+        if (this.remainingLockingTime == 0) {
             this.locked = false;
+            //System.out.println("TimeAble was unlocked: " + this);
+        }
         return this.remainingLockingTime;
+    }
+
+    public String toString() {
+
+        String s = "[TimeAble: " +
+            (this.isLocked() ?
+            "locked " + this.remainingLockingTime + " Units" :
+            "not locked") + 
+            "]";
+
+        return s;
     }
 
 }

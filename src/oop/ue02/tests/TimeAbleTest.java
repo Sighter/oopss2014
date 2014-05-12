@@ -18,7 +18,12 @@ public class TimeAbleTest {
 
         TimeAble t = new TimeAble();
 
+        System.out.println(t);
+
         t.lock(2);
+
+        System.out.println(t);
+        
 
         assertTrue("TimeAble not locked", t.isLocked());
 
