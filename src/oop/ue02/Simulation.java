@@ -18,16 +18,23 @@ public class Simulation {
     FuelStation fuelStation;
     CarFactory carFactory;
 
+    /**
+     * main method to start the simulation
+     * @param command line args
+     */
     public static void main(String[] args) {
-        
+
         Simulation sim = new Simulation();
     }
 
+    /**
+     * constructor
+     */
     public Simulation() {
         this.timeAbles = new LinkedList<TimeAble>();
         this.time = 0;
-        this.endTime = 3000;
-        this.checkInterval = 120;
+        this.endTime = 3600; // 1 hour in seconds
+        this.checkInterval = 300; // 
 
         this.carFactory = new CarFactory(this);
         this.fuelStation = new FuelStation(this.carFactory);
@@ -36,6 +43,11 @@ public class Simulation {
         this.simLoop();
     }
 
+    /**
+     * this method runs the main simulation loop. One loop cycle
+     * represents one time unit. In our special case, this is one
+     * second
+     */
     public void simLoop() {
 
         for (this.time = 0; this.time < this.endTime; this.time++) {
@@ -54,25 +66,55 @@ public class Simulation {
             this.decreaseAllTimeAbles();
         }
 
+        /* print stats */
+        System.out.format(
+            "Petrol Pump Waitingtime Average: %d\n",
+            this.fuelStation.getPetrolPumpWaitingTimeAverage()
+        );
+        
+        System.out.format(
+            "Cash Desk Waiting Times Average: %d\n",
+            this.fuelStation.getCashDeskWaitingTimeAverage()
+        );
+
     }
 
+    /**
+     * create a timeable and store it for later callbacks
+     * @return the created timeable
+     */
     public TimeAble createRegisteredTimeAble() {
         TimeAble t = new TimeAble();
         this.timeAbles.add(t);
         return t;
     }
 
+    /**
+     * decrease all locking times and increase all
+     * waiting times in the timeables
+     */
     public void decreaseAllTimeAbles() {
         for (TimeAble t : this.timeAbles) {
             if (t.isLocked())
                 t.decreaseLockingTime();
+
+            if (t.isWaiting())
+                t.increaseWaitingTime();
         }
     }
 
+    /**
+     * get all registered timeAbles as list
+     * @return the list
+     */
     public LinkedList<TimeAble> getTimeAbles() {
         return this.timeAbles;
     }
 
+    /**
+     * convenience method string converter
+     * @return string representation
+     */
     public String toString() {
 
         String s = String.format("%6d [FuelStation => F:%s Desk:%s]",
@@ -84,6 +126,9 @@ public class Simulation {
         return s;
     }
 
+    /**
+     * print a formatted protocol header
+     */
     public void printProtocolHeader() {
 
         System.out.format("|| %5s ", "Zeit");
@@ -98,6 +143,10 @@ public class Simulation {
 
     }
 
+    /**
+     * print a new formatted line with fuel pump and chash
+     * desk sizes
+     */
     public void printProtocolLine() {
         System.out.format("|| %5d ", this.time);
 

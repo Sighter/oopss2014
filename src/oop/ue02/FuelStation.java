@@ -32,18 +32,40 @@ public class FuelStation {
     private LinkedList<Integer> cashDeskTimeHistory;
 
     /**
+     * getter
+     * @return the time history of the cashdesk
+     */
+    public LinkedList<Integer> getCashDeskTimeHistory() {
+        return this.cashDeskTimeHistory;
+    }
+
+    /**
      * history of times cars waited on the petrolpumps
      * for later statistics
      */
     private LinkedList<Integer> petrolPumpTimeHistory;
 
     /**
+     * getter
+     * @return the time history for the petrolpumps
+     */
+    public LinkedList<Integer> getPetrolPumpTimeHistory() { 
+        return this.petrolPumpTimeHistory;
+    }
+
+    /**
      * the car facory 
      */
     private CarFactory carFactory;
 
+    /**
+     * variable to hold the current time
+     */
     private int currentTime;
 
+    /**
+     * flag for debug mode
+     */
     private boolean debug;
 
     /**
@@ -57,12 +79,20 @@ public class FuelStation {
         this.cashDeskQueue = new LinkedList<Driver>();
         this.debug = false;
 
+        this.cashDeskTimeHistory = new LinkedList<Integer>();
+        this.petrolPumpTimeHistory = new LinkedList<Integer>();
+
         for (int idx = 0; idx < this.PETROLPUMPCOUNT; idx++) {
-            System.out.println("init Queue");
+            //System.out.println("init Queue");
             this.petrolPumpQueues.add(new LinkedList<Car>());
         }
     }
 
+    /**
+     * see if new car is available, 
+     * if yes insert it in the petrol pump queues
+     * @return true if car was inserted, else false
+     */
     public boolean processIncomingCars() {
 
         Car newCar = this.carFactory.getCar();
@@ -76,13 +106,21 @@ public class FuelStation {
                 );
             }
 
+
+            /* start wait */
+            newCar.getTimeAble().setWaiting(true);
+
             this.insertCar(newCar);
+
             return true;
         } else {
             return false;
         }
     }
 
+    /**
+     * process the fuel pump cues
+     */
     public void proccessFuelPumpQueues() {
 
         for (Queue<Car> q : this.petrolPumpQueues) {
@@ -105,6 +143,8 @@ public class FuelStation {
             if (!t.isLocked() && !car.isFueledUp() && !car.isFuelingInProgress()) {
                 t.lock(car.getFuelTime());
                 car.setFuelingInProgress();
+                //System.out.println("get waiting time: " + t.getWaitingTime());
+                t.setWaiting(false);
                 continue;
             }
 
@@ -113,6 +153,8 @@ public class FuelStation {
                 car.setFueledUp();
                 Driver d = car.removeDriver();
                 this.cashDeskQueue.add(d);
+
+                d.getTimeAble().setWaiting(true);
 
                 if (this.debug) {
                     System.out.format("%6d Car finished fueling: %s\n",
@@ -151,6 +193,10 @@ public class FuelStation {
                         car
                     );
                 }
+                /* write wait time statistics */
+                this.cashDeskTimeHistory.add(driverTa.getWaitingTime());
+                this.petrolPumpTimeHistory.add(t.getWaitingTime());
+
                 q.remove();
                 continue;
             }
@@ -164,6 +210,9 @@ public class FuelStation {
 
     }
 
+    /**
+     * process the cash desk
+     */
     public void processCashDeskQueue() {
 
         Driver d = this.cashDeskQueue.peek();
@@ -197,6 +246,7 @@ public class FuelStation {
             d.setPaying(false);
             this.cashDeskQueue.remove();
             d.goBackToCar();
+            t.setWaiting(false);
 
             if (this.debug) {
                 System.out.format("%6d Driver paid off: %s\n",
@@ -209,6 +259,11 @@ public class FuelStation {
 
     }
 
+    /**
+     * consistently insert new cars in the cues
+     * @param  car a car
+     * @return teh quere where the car gots inserted
+     */
     public Queue<Car> insertCar(Car car) {
         
         /* determine the shortest list and insert the car there */
@@ -228,6 +283,10 @@ public class FuelStation {
         return shortestCue;
     }
 
+    /**
+     * get the lengths of the petrol pump cues
+     * @return an array with the lengths
+     */
     public int[] getPetrolPumpLengths() {
 
         int[] sizes = new int[this.PETROLPUMPCOUNT];
@@ -240,10 +299,19 @@ public class FuelStation {
         return sizes;
     }
 
+    /**
+     * get cue size of the cash desk
+     * @return size
+     */
     public int getCashDeskLength() {
         return this.cashDeskQueue.size();
     }
 
+    /**
+     * get a petrol pump cue at specified index
+     * @param  pos index
+     * @return petrol pump queue
+     */
     public Queue<Car> getPetrolPumpQueue(int pos) {
         if (pos >= this.PETROLPUMPCOUNT)
             throw new RuntimeException("Invalid cue index");
@@ -251,12 +319,48 @@ public class FuelStation {
         return this.petrolPumpQueues.get(pos);
     }
 
+    /**
+     * set the current time
+     * @param t the time
+     */
     public void setCurrentTime(int t) {
         this.currentTime = t;
     }
 
+    /**
+     * get the current time
+     * @return the time
+     */
     public int getCurrentTime() {
         return this.currentTime;
+    }
+
+    /**
+     * gets the avarage of waiting times at the fuel pumps
+     * @return avarage waiting time
+     */
+    public int getPetrolPumpWaitingTimeAverage() {
+
+        int sum = 0;
+
+        for (int k : this.petrolPumpTimeHistory)
+            sum += k;
+
+        return sum / this.petrolPumpTimeHistory.size();
+    }
+
+    /**
+     * gets the avarage of waiting times at the cash desk
+     * @return avarage waiting time
+     */
+    public int getCashDeskWaitingTimeAverage() {
+
+        int sum = 0;
+
+        for (int k : this.cashDeskTimeHistory)
+            sum += k;
+
+        return sum / this.cashDeskTimeHistory.size();
     }
     
 }

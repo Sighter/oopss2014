@@ -21,11 +21,23 @@ public class TimeAble {
     private int remainingLockingTime;
 
     /**
+     * flag to hold waiting status
+     */
+    private boolean waiting;
+
+    /**
+     * varaiable to hold the complete
+     * waiting time
+     */
+    private int waitingTime;
+
+    /**
      * constructor
      */
     public TimeAble() {
         this.remainingLockingTime = 0;
         this.locked = false;
+        this.waiting = false;
     }
 
     /**
@@ -67,7 +79,15 @@ public class TimeAble {
         return this.remainingLockingTime;
     }
 
-    public String toString() {
+    public boolean  isWaiting() { return this.waiting; }
+
+    public int      getWaitingTime() { return this.waitingTime; }
+
+    public void     setWaiting(boolean w) { this.waiting = w; }
+
+    public void     increaseWaitingTime() { this.waitingTime++; }
+
+    public String   toString() {
 
         String s = "[TimeAble: " +
             (this.isLocked() ?
