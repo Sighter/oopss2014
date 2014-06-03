@@ -41,7 +41,8 @@ public class Noiser {
     /* ============================ LIFECYCLE ================================= */
 
     /**
-     * constructor
+     * standart constructor sets the ascii intevall which is used
+     * between 126 and 33 decimal
      */
     public Noiser() {
         this.setAsciiValueMax(126);
@@ -100,9 +101,13 @@ public class Noiser {
     
     public Noiser setAsciiValueMin(int v) { this.asciiValueMin = v; return this; }
 
+    /**
+     * retrieve the count of characters, which really hav been randomized
+     * @return count
+     */
     public int getLastNoisedCharCount() { return this.lastNoisedCharCount; }
     
-    public Noiser setLastNoisedCharCount(int v) { this.lastNoisedCharCount = v; return this; }
+    private Noiser setLastNoisedCharCount(int v) { this.lastNoisedCharCount = v; return this; }
     
     /* ============================ INQUIRY =================================== */
             
@@ -116,6 +121,12 @@ public class Noiser {
 
     private int lastNoisedCharCount;
 
+    /**
+     * create a random integer number between min and max value
+     * @param  min intervall minimum
+     * @param  max intervall maximum
+     * @return the randomized number
+     */
     private int randomWithRange(int min, int max) {
        int range = (max - min) + 1;
        return (int)(Math.random() * range) + min;
@@ -123,6 +134,12 @@ public class Noiser {
 
     /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
 
+    /**
+     * create a random ascii charater inside the given intervall
+     * @param  min ascii decimal code
+     * @param  max ascii decimal code
+     * @return the randomized charater
+     */
     private char createRandomAsciiChar(int min, int max) {
         int asciiNumber = this.randomWithRange(min, max);
         char newChar = (char)asciiNumber;
