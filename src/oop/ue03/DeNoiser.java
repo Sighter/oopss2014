@@ -48,8 +48,8 @@ public class DeNoiser
 	   }
    }  
 //	  stellen die Type Char[] zu String um.
-	  String s1 = Arrays.toString(max);
-      System.out.println(s1);
+	  String s1 = new String(max);
+	  System.out.println(s1);
 	  return s1;   
   }
   }
