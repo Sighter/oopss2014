@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="12.2">
+  <zoom_level>10</zoom_level>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>30</x>
+      <y>430</y>
+      <w>230</w>
+      <h>360</h>
+    </coordinates>
+    <panel_attributes>Node
+--
+id : int
+left : Node
+upper : Node
+right : Node
+bottom : Node
+--
++ Node(id)
++ getLeft() : Node
++ getUpper() : Node
++ getRight() : Node
++ getBottom() : Node
++ setLeft(Node n)
++ setUpper(Node n)
++ setRight(Node n)
++ setBottom(Node n)
++ markVisited () : void
++ toString()</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>400</x>
+      <y>430</y>
+      <w>390</w>
+      <h>360</h>
+    </coordinates>
+    <panel_attributes>Maze
+--
+startNode : Node
+targetNode : Node
+allNodes : ArrayList&lt;Node&gt;
+allWays : List&lt;Stack&lt;Node&gt;&gt;
+--
++ Maze(
+    List&lt;Node&gt; nodes, 
+    Node startNode,
+    Node targetNode
+) 
++ List&lt;Stack&lt;Node&gt; findAllWays ()
+--
+- findWay(
+    Node current,
+    Node target,
+    Way currentWay,
+)
++ toString()
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>40</x>
+      <y>270</y>
+      <w>390</w>
+      <h>110</h>
+    </coordinates>
+    <panel_attributes>MazeFactory
+--
+--
+MazeFactory(NodeReader reader)
++ createMaze()
++ createMazeFromFile()
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>40</x>
+      <y>30</y>
+      <w>390</w>
+      <h>180</h>
+    </coordinates>
+    <panel_attributes>NodeReader
+--
+- filePath : String
+- fileHandle : File
+--
++ NodeReader(filePath)
++ List&lt;Node&gt; getNodes()
+- readNextNode()
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>510</x>
+      <y>200</y>
+      <w>470</w>
+      <h>130</h>
+    </coordinates>
+    <panel_attributes>MainController
+--
+--
++ main()
+--
+- void askForMazeFilePath()
+- void mainMenu()</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>230</x>
+      <y>540</y>
+      <w>190</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;-
+m1=1..*</panel_attributes>
+    <additional_attributes>170;30;30;30</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>210</x>
+      <y>180</y>
+      <w>50</w>
+      <h>110</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>30;90;30;30</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>400</x>
+      <y>240</y>
+      <w>130</w>
+      <h>100</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>110;30;30;80</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>670</x>
+      <y>300</y>
+      <w>90</w>
+      <h>150</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;-
+m2=1..n</panel_attributes>
+    <additional_attributes>30;30;70;130</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>960</x>
+      <y>490</y>
+      <w>210</w>
+      <h>190</h>
+    </coordinates>
+    <panel_attributes>Way
+--
+- nodeList : Stack&lt;Node&gt;
+--
++ push(Node node)
++ pop()
++ nodeExists(Node n)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>760</x>
+      <y>560</y>
+      <w>220</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;-
+m2=1..n</panel_attributes>
+    <additional_attributes>30;30;200;30</additional_attributes>
+  </element>
+</diagram>

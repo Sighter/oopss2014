@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="12.2">
+  <zoom_level>10</zoom_level>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>960</x>
+      <y>110</y>
+      <w>370</w>
+      <h>360</h>
+    </coordinates>
+    <panel_attributes>Maze
+--
+- currentPath: List&lt;Node[]&gt;
+- paths : List&lt;List&lt;Node[]&gt; &gt;
+- stack : Stack&lt;Node[]&gt;
+- rememberCurrentPath(): void
+- isExit(current Node): boolean
+- searchNext(Node current, Node pre) :List&lt;Node&gt;
+- checkAndSaveNext(Node current, Node pre, Node next,
+			List&lt;Node&gt; movables) : void
+- containsCircle(Node next) :boolean
+- isAvailable(Node next) : boolean
+- searchNorthWest(Node current) : Node
+- searchWest(Node current) : Node
+- searchSouthWest(Node current):Node
+- searchSouth(Node current): Node
+- searchSouthEast(Node current):Node
+- searchEast(Node current):Node
+- searchNorthEast(Node current); Node
+- searchNorth(Node current):Node
+--
++findPath: void</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>230</x>
+      <y>170</y>
+      <w>210</w>
+      <h>190</h>
+    </coordinates>
+    <panel_attributes>MainCotroller
+--</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>570</x>
+      <y>170</y>
+      <w>240</w>
+      <h>190</h>
+    </coordinates>
+    <panel_attributes>GraphReader
+--
++ readMazeGraph : int[][]
++ readStartNode : Node
++ readEndNode :  Node
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>590</x>
+      <y>500</y>
+      <w>210</w>
+      <h>130</h>
+    </coordinates>
+    <panel_attributes>Node
+--
++ absciassa: int 
++ ordinate: int 
++ Position(x:int  y:int )
++ equals(obj :object ): boolean</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>410</x>
+      <y>250</y>
+      <w>180</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>160;30;30;30</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>780</x>
+      <y>240</y>
+      <w>200</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>180;30;30;30</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>770</x>
+      <y>440</y>
+      <w>320</w>
+      <h>150</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>300;30;30;130</additional_attributes>
+  </element>
+</diagram>
