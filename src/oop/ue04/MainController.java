@@ -3,7 +3,7 @@ package oop.ue04;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
-class MainController {
+public class MainController {
     
     /////////////////////////////// PUBLIC ///////////////////////////////////////
     
@@ -17,12 +17,19 @@ class MainController {
 
     /* ============================ LIFECYCLE ================================= */
 
+    /**
+     * constructor
+     */
     public MainController() {
         this.inputScanner = new Scanner(System.in);
     }
 
     /* ============================ OPERATIONS ================================ */
 
+    /**
+     * run the main maze programm, this asks the user to put in a new filepath to read
+     * a maze from
+     */
     public void runOnce() {
 
         String path;

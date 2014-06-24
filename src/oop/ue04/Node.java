@@ -4,7 +4,7 @@ package oop.ue04;
 import java.util.ArrayList;
 import java.lang.StringBuilder;
 
-class Node {
+public class Node {
 
     /////////////////////////////// PUBLIC ///////////////////////////////////////
     

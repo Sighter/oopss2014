@@ -6,7 +6,7 @@ import java.util.List;
 
 import oop.ue04.Node;
 
-class MazeFactory {
+public class MazeFactory {
 
     /////////////////////////////// PUBLIC ///////////////////////////////////////
     

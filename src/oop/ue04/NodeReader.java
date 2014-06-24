@@ -6,7 +6,7 @@ import java.util.Scanner;
 
 import oop.ue04.Node;
 
-class NodeReader {
+public class NodeReader {
     
     /////////////////////////////// PUBLIC ///////////////////////////////////////
     
