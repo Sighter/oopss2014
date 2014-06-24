@@ -10,7 +10,7 @@ class NodeReader {
     
     /////////////////////////////// PUBLIC ///////////////////////////////////////
     
-    public static void main(String[] args) throws FileNotFoundException {
+    public static void main(String[] args) throws FileNotFoundException, IOException {
 
         NodeReader r = new NodeReader("test1.mace");
         r.read();
@@ -21,20 +21,35 @@ class NodeReader {
 
     public NodeReader(String filePath) throws FileNotFoundException {
 
-        this.fileReader= new BufferedReader(new FileReader(filePath));
+        this.filePath = filePath;
 
     }
     
     /* ============================ ACCESS ==================================== */
     
-    /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
-    
     /* ============================ OPERATIONS ================================ */
 
-    public ArrayList<Node> read() {
+    /**
+     * method which returns a list of nodes read from a file
+     *
+     * the file must contain a 5xn matrix which describes the releationships
+     * in the maze graph. All nodes are identified by a key. First row in the matrix
+     * describes all existent nodes in the mace. On each line all remaining numbers are
+     * reference keys to the other nodes wich are connected to the first one.
+     * Basicly its like a relational table.
+     *
+     * 
+     * @return The list with nodes
+     * @throws IOException
+     */
+    public ArrayList<Node> read() throws IOException {
 
         ArrayList<Node> list = new ArrayList<Node>();
-        Scanner parentScanner = new Scanner(this.fileReader);
+        BufferedReader parentReader = new BufferedReader(new FileReader(filePath));
+        BufferedReader childReader = null;
+        Scanner parentScanner = new Scanner(parentReader);
+        Scanner childScanner = null;
+
 
         while (parentScanner.hasNext()) {
 
@@ -44,6 +59,18 @@ class NodeReader {
 
             System.out.println("Read node " + n);
         }
+
+        parentReader.close();
+
+        childReader = new BufferedReader(new FileReader(filePath));
+        childScanner = new Scanner(childReader);
+
+        while (childScanner.hasNext()) {
+
+            this.linkNextChilds(childScanner, list);
+        }
+
+        childReader.close();
 
         return list;
     }
@@ -55,8 +82,6 @@ class NodeReader {
     /////////////////////////////// PRIVATE //////////////////////////////////////
     
     private String filePath;
-    private Scanner fileScanner;
-    private BufferedReader fileReader;
 
     private int readNextParentId(Scanner s) {
 
@@ -69,7 +94,24 @@ class NodeReader {
         return id;
     }
 
-    private void linkNextChilds(Scanner s, ArrayList<Node> list, Node currentNode) {
-        
+    /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
+
+    private void linkNextChilds(Scanner s, ArrayList<Node> list) {
+
+        int id = s.nextInt();
+        Node n = list.get(id - 1);
+
+        for (int idx = 0; idx < Node.NEIGHBOUR_COUNT; idx++) {
+            int childId = s.nextInt();
+            
+            if (childId == 0)
+                continue;
+            
+            Node child = list.get(childId - 1);
+            n.getNeighbours().set(idx ,child);
+        }
+
+        System.out.println("Linked childs for: " + n);
+
     }
 }

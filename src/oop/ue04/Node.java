@@ -28,10 +28,18 @@ class Node {
         
     }
 
+    /**
+     * maximum count a node can have as childs
+     */
     public static final int NEIGHBOUR_COUNT = 4;
     
     /* ============================ LIFECYCLE ================================= */
 
+    /**
+     * constructor to build a simple node
+     * @param the id of the node
+     * @return a node
+     */
     public Node(int id) {
         this.setId(id);
         this.neighbours = new ArrayList<Node>(Node.NEIGHBOUR_COUNT);
@@ -43,16 +51,39 @@ class Node {
     
     /* ============================ ACCESS ==================================== */
 
+    /**
+     * get the id
+     * @return the id
+     */
     public int getId() { return this.id; }
-    
+
+
+    /**
+     * set the id
+     * @param id
+     * @return the changed node
+     */
     public Node setId(int v) { this.id = v; return this; }
 
+    /**
+     * get the list which represents all neighbour nodes
+     * you can change the list to change the neighbours
+     *
+     * the first NEIGHBOUR_COUNT slots in the arraylist are
+     * initialized with null, so they are setable
+     * 
+     * @return the neighbours
+     */
     public ArrayList<Node> getNeighbours() { return this.neighbours; }
     
     /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
     
     /* ============================ OPERATIONS ================================ */
 
+    /**
+     * String converter
+     * @return string
+     */
     public String toString() {
 
         ArrayList<Node> n = this.getNeighbours();
@@ -60,7 +91,7 @@ class Node {
         sb.append(this.getId());
 
         for (Node child : this.getNeighbours()) {
-            sb.append(" | ");
+            sb.append(" || ");
             if (child == null)
                 sb.append('x');
             else
