@@ -16,7 +16,7 @@ class NodeReader {
         r.read();
         
     }
-    
+
     /* ============================ LIFECYCLE ================================= */
 
     public NodeReader(String filePath) throws FileNotFoundException {
