@@ -1,6 +1,8 @@
 package oop.ue04;
 
+import java.io.*;
 import java.util.ArrayList;
+import java.util.List;
 
 import oop.ue04.Node;
 
@@ -30,8 +32,12 @@ class MazeFactory {
      * 
      * @return a fresh maze
      */
-    public Maze createMaze(ArrayList<Node> list) {
-        return new Maze(list);
+    public Maze createMaze(ArrayList<Node> list) throws FileNotFoundException, IOException {
+        return new Maze(
+            (List<Node>)list,
+            list.get(0),
+            list.get(list.size() - 1)
+        );
     }
 
     /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
@@ -42,12 +48,12 @@ class MazeFactory {
      * @param path to the file
      * @return new maze
      */
-    public Maze createMazeFromFile(String filePath) {
+    public Maze createMazeFromFile(String filePath) throws FileNotFoundException, IOException {
 
         NodeReader reader = new NodeReader(filePath);
         ArrayList<Node> list = reader.read();
 
-        return createMaze(list)
+        return this.createMaze(list);
     }
     
     /* ============================ INQUIRY =================================== */

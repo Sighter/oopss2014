@@ -13,7 +13,11 @@ class NodeReader {
     public static void main(String[] args) throws FileNotFoundException, IOException {
 
         NodeReader r = new NodeReader("test1.mace");
-        r.read();
+        ArrayList<Node> l = r.read();
+
+        System.out.println("Read test1.mace");
+        System.out.println("Size now at " + l.size());
+
         
     }
 
