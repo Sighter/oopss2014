@@ -6,6 +6,21 @@ public class Test
 {	 
 	 public static void main(String[] args)
 	  {
+//  Beispile:
+//		 
+//		 
+//                          g (7)-------------- h (8)
+//                            |
+//                            |
+//                            |
+//     a (1)                b (2)-------------- e (3)
+//       |                    |                  |
+//       |                    |                  |
+//       |                    |                  |
+//     c (4) ---------------d (5)-------------- f (6) 
+//		 
+//		 
+	 		 
 	    ArrayList<Node> test = new ArrayList<Node>();
 	    Node a=new Node(1);
 	    Node b=new Node(2);
@@ -45,16 +60,9 @@ public class Test
 	    System.out.println(n+"'s Neighbour are"+n.getNeighbours());
 	    }
 	    Maze m= new Maze(test,a,f);
-	    System.out.println("the last Node we have found is "+m.findWayRec(a,h) );
-	    m.peek();
-	    System.out.println("the Index of " + a +" in Stack is "+ m.search(a));	    
-	    System.out.println("the Index of " + c +" in Stack is "+ m.search(c));
-	    System.out.println("the Index of " + d +" in Stack is "+ m.search(d));
-	    System.out.println("the Index of " + b +" in Stack is "+ m.search(b));
-	    System.out.println("the Index of " + e +" in Stack is "+ m.search(e));
-	    System.out.println("the Index of " + f +" in Stack is "+ m.search(f));
-	    System.out.println("the Index of " + g +" in Stack is "+ m.search(g));
-	    System.out.println("the Index of " + h +" in Stack is "+ m.search(h));
-	    System.out.println("the Way from "+a+" to " + h +" is " + m.path());
+	    Way w = new Way();
+	    System.out.println("the last Node we have found is "+m.findWayRec(a,f,w) );	
+//	    System.out.println("the newWay is "+m.path() );	
+	    System.out.println("all Ways are  "+m.findAllWays());	
 	}
 }

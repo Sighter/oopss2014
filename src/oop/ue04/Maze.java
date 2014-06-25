@@ -8,7 +8,8 @@ public class Maze
 	private Node startNode  ;
 	private Node targetNode ;
 	private List<Node> allNodes = new ArrayList<Node>(); 
-    List<Way> allWays = new ArrayList<Way>();		
+    List<Way> allWays = new ArrayList<Way>();	
+    List<Way> Ways = new ArrayList<Way>();	
     Way newWay = new Way();
     
    
@@ -18,8 +19,9 @@ public class Maze
 		this.startNode = startNode;
 		this.targetNode = targetNode;
 	}
-		
-	public Node findWayRec(Node current,Node target)
+	
+//	 ich schreibte die Attribute zum ersten public,um einfach zu sehen.
+	public Node findWayRec(Node current,Node target,Way currentway)
 	{	
 	    Node found = null;
 		if(current == target)
@@ -29,18 +31,19 @@ public class Maze
 		  else
 		  {
 		   for(Node n:current.getNeighbours())
-			{			 
+			{				 
 		     if(this.findNodeInWays(n)==false)
 			 {	
-		     this.newWay.push(n);
-			 found=findWayRec(n,target);
+		     currentway.push(n);
+		     this.allWays.add(currentway);
+			 found=findWayRec(n,target,currentway);
 			    if(found!=null)
 			    {			    
 			    return found; 
 			    }
 			    else 
 			    {
-                this.newWay.pop();
+			    currentway.pop();
 			    }
 			 }	
 		  }	
@@ -48,9 +51,9 @@ public class Maze
 	  return null;		
 	 }
 	
-//////////////////////////////////////////////////////////////////////////////////////////////////	
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	
 	/*
-	 * Die Methoden peek(),serch(), und pop() sind nur fuer Testten.
+	 * Die Methoden peek(),serch(), pop() und path() sind nur fuer Testen.
 	 */
 	public void peek()
 	{
@@ -58,46 +61,47 @@ public class Maze
 	}	
 	public int search(Node n) 
 	{
-	   return this.newWay.search(n);
+	  return this.newWay.search(n);
 	}
 	public void pop()
 	{
 		this.newWay.pop();
-	}
-	
+	}	
 	public Way path()
 	{
 	  return this.newWay;
 	}
-//////////////////////////////////////////////////////////////////////////////////////////////////	
-	  
+	
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	
 	
 	public boolean findNodeInWays(Node node)
 	{ 
-	  this.allWays.add(this.newWay);
 	  for(Way way:this.allWays)
 	   {
 	   if(way.nodeExists(node)==true)
 	   {
 		 return true;
 	   }
-	   else return false;
+	   else 
+	     return false;
 	   }
-		return false;
+	  return false;
 	}
 	
 	
 	public List<Way> findAllWays ()
-	{   	 
-	 Way last=this.allWays.get(this.allWays.size()-1);
-	 this.newWay= last;
+	{ 
+//	 ?????  viellechte verschreibte ich hier . 
+//	 Way last=this.allWays.get(this.allWays.size()-1); 
+//	 this.newWay= last; 
 	 return this.allWays;
 	}
 	
 	
 	public String toString()
 	{
-	return "" + this.findWayRec(this.startNode, this.targetNode)+""+this.newWay
+	return "" + this.findWayRec(this.startNode, this.targetNode,this.newWay)+""+this.newWay
 			+""+ this.findAllWays();
 	}
  

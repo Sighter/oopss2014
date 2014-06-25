@@ -1,7 +1,9 @@
 package oop.ue04;
 
+import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
+import java.io.*;
 
 public class MainController {
     
@@ -37,6 +39,16 @@ public class MainController {
         System.out.println("\nWilkommen\n");
         path = this.askForMazeFilePath();
 
+        try {
+            NodeReader reader = new NodeReader(path);
+            ArrayList<Node> nodelist = reader.read();
+        } catch (FileNotFoundException e) {
+            System.err.println("Datei nicht gefunden: " + e.getMessage());
+            return;
+        } catch (IOException e) {
+            System.err.println("IOException ist aufgetreten: " + e.getMessage());
+            return;
+        }
     }
     
     /////////////////////////////// PRIVATE //////////////////////////////////////

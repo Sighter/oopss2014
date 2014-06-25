@@ -1,13 +1,14 @@
 package oop.ue04;
 
+
 import java.util.Stack;
 
 public class Way 
 {
     Stack<Node> nodeList = new Stack<Node>();
+    
 	public Way(){}
-	
-	
+		
 ////////////////////////////////////////////////////////////////////////////////////		
 	public Node peek()
 	{
