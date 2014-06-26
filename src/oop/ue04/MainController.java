@@ -10,11 +10,8 @@ public class MainController {
     /////////////////////////////// PUBLIC ///////////////////////////////////////
     
     public static void main(String[] args) {
-
         MainController mc = new MainController();
-
         mc.runOnce();
-        
     }
 
     /* ============================ LIFECYCLE ================================= */
@@ -23,8 +20,22 @@ public class MainController {
      * constructor
      */
     public MainController() {
-        this.inputScanner = new Scanner(System.in);
+        this.inputScanner = null;
+
     }
+
+    /* ============================ DEPENDENCIES ============================== */
+
+    public Scanner getInputScanner() {
+        if (this.inputScanner == null) {
+            this.inputScanner = new Scanner(System.in);
+            return this.inputScanner;
+        } else
+            return this.inputScanner;
+    }
+    
+    public MainController setInputScanner(Scanner v) { this.inputScanner = v; return this; }
+
 
     /* ============================ OPERATIONS ================================ */
 
@@ -35,13 +46,14 @@ public class MainController {
     public void runOnce() {
 
         String path;
+        ArrayList<Node> nodelist;
 
         System.out.println("\nWilkommen\n");
         path = this.askForMazeFilePath();
 
         try {
             NodeReader reader = new NodeReader(path);
-            ArrayList<Node> nodelist = reader.read();
+            nodelist = reader.read();
         } catch (FileNotFoundException e) {
             System.err.println("Datei nicht gefunden: " + e.getMessage());
             return;
@@ -59,7 +71,7 @@ public class MainController {
         while (true) {
             try {
                 System.out.print("Bitte geben sie des Einzulesenden Labyrinths an: > ");
-                String line = this.inputScanner.nextLine();
+                String line = this.getInputScanner().nextLine();
                 return line;
             } catch (InputMismatchException e) {
             }
