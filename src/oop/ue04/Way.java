@@ -1,37 +1,76 @@
 package oop.ue04;
 
-
 import java.util.Stack;
 
+
+/**
+ * Klass von Way
+ * es wird als ein Stack von Node definiert
+ */
 public class Way 
 {
-    Stack<Node> nodeList = new Stack<Node>();
+    private Stack<Node> nodeList = new Stack<Node>();
     
-	public Way(){}
+	public Way(){
 		
-////////////////////////////////////////////////////////////////////////////////////		
-	public Node peek()
-	{
-	 return this.nodeList.peek();
 	}
-	public int search(Node n)
-	{
+	
+	public Way setStack(Stack<Node> s) {
+		this.nodeList = s;
+		return this;
+	}
+	
+	public Stack<Node> getStack() {
+		return this.nodeList;
+	}
+		
+	////////////////////////////////////////////////////////////////////////////////////		
+	public Node peek() {
+		return this.nodeList.peek();
+	}
+	
+	public int search(Node n) {
 		return this.nodeList.search(n);
 	}
-///////////////////////////////////////////////////////////////////////////////////	
+	
+	public Way getCopy() {
+		Stack<Node> newStack = new Stack<Node>();
+		
+		for(Node n : this.getStack()) {
+			newStack.push(n);
+		}
+		
+		Way newWay = new Way();
+		newWay.setStack(newStack);
+		
+		return newWay;
+	}
+	///////////////////////////////////////////////////////////////////////////////////	
 	
 	
-	
+
+	/**
+	 * push node  in Stack 
+	 * @param node  
+	 */
 	public void push(Node node)
 	{
 		this.nodeList.push(node);
 	}
 	
+	/**
+	 * pop node aus Stack 
+	 * @param node  
+	 */
 	public void  pop()
 	{
 		this.nodeList.pop();
 	}
 	
+	/**
+	 * entscheiden node ob in Stack ist 
+	 * @param node   
+	 */
 	public boolean nodeExists(Node node)
 	{
 		if(this.nodeList.search(node) == -1)
@@ -47,9 +86,5 @@ public class Way
 	public String toString()
 	{
 		return ""+this.nodeList;
-	}
-
-	public Stack<Node> getNodeList() {
-		return this.nodeList;
 	}
 }

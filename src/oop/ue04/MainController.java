@@ -12,11 +12,11 @@ public class MainController {
     
     public static void main(String[] args) {
         //Scanner staticScanner = new Scanner("test1.mace\n");
-        Scanner staticScanner = new Scanner("altjesnitz-1994.mace\n");
+        //Scanner staticScanner = new Scanner("altjesnitz-1994.mace\n");
         //Scanner staticScanner = new Scanner("altjesnitz-1845.mace\n");
         
         MainController mc = new MainController();
-        mc.setInputScanner(staticScanner);
+        //mc.setInputScanner(System.in);
 
         mc.runOnce();
     }
@@ -84,10 +84,10 @@ public class MainController {
         for (Way w: waylist) {
             System.out.print("Weg " + wayCount +" => ");
             int nodeCount = 0;
-            for (Node n: w.getNodeList()) {
+            for (Node n: w.getStack()) {
                 nodeCount++;
                 System.out.print(n.getId());
-                if (nodeCount < w.getNodeList().size())
+                if (nodeCount < w.getStack().size())
                     System.out.print(" -> ");
             }
             System.out.println();
