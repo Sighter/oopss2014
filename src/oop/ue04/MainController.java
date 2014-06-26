@@ -78,6 +78,8 @@ public class MainController {
         Maze maze = new Maze(nodelist, startNode, targetNode);
         List<Way> waylist = maze.findAllWays();
 
+        /* print it */
+        
         int wayCount = 1;
         for (Way w: waylist) {
             System.out.print("Weg " + wayCount +" => ");
