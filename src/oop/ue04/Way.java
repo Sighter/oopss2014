@@ -48,4 +48,8 @@ public class Way
 	{
 		return ""+this.nodeList;
 	}
+
+	public Stack<Node> getNodeList() {
+		return this.nodeList;
+	}
 }

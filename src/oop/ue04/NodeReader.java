@@ -61,7 +61,7 @@ public class NodeReader {
 
             list.add(n);
 
-            System.out.println("Read node " + n);
+            //System.out.println("Read node " + n);
         }
 
         parentReader.close();
@@ -115,7 +115,7 @@ public class NodeReader {
             n.getNeighbours().set(idx ,child);
         }
 
-        System.out.println("Linked childs for: " + n);
+        //System.out.println("Linked childs for: " + n);
 
     }
 }
