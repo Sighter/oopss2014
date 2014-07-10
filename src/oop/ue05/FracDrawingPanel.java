@@ -102,8 +102,12 @@ public class FracDrawingPanel extends JPanel implements Observer, ComponentListe
 
         for (int x = 0; x < width; x++ ) {
             for (int y = 0; y < width; y++ ) {
-                if (buffer[x][y] == 1) {
+                if (buffer[x][y] == -1) {
                     g2d.setColor(Color.WHITE);
+                    g2d.drawLine(x, y, x, y);
+                } else {
+                    Color c = new Color(0, 0, buffer[x][y] % 255);
+                    g2d.setColor(c);
                     g2d.drawLine(x, y, x, y);
                 }
             }            

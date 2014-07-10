@@ -74,8 +74,12 @@ public class FracModel extends Observable {
 	        	this.frameBuffer[i][j]=0;
 	        	double a = this.borderNumber1.getReal() + i * (this.borderNumber2.getReal() - this.borderNumber1.getReal()) / width;
 		    	double b = this.borderNumber1.getImage() + j * (this.borderNumber2.getImage() - this.borderNumber1.getImage()) / height;
-	        	if (inSetCheck(new ComplexNumber(a,b)))
-	        		this.frameBuffer[i][j]=1;
+
+		    	int check = inSetCheck(new ComplexNumber(a,b));
+	        	if (check == -1)
+	        		this.frameBuffer[i][j] = -1;
+	        	else
+	        		this.frameBuffer[i][j] = check;
 	        }
 	    }
 
@@ -85,7 +89,7 @@ public class FracModel extends Observable {
 	    return this.frameBuffer;
 	}
 	
-	private boolean inSetCheck(ComplexNumber z) {
+	private int inSetCheck(ComplexNumber z) {
 		ComplexNumber start=new ComplexNumber(0,0);
 	    int iterations = 0;
 	    do {
@@ -95,9 +99,9 @@ public class FracModel extends Observable {
 	      start.setImage(newIm) ;
 	      iterations++;
 	      if (iterations == this.iterationstief)
-	      return true;
+	      return -1;
 	    } while (start.getReal() <= 2 && start.getImage() <= 2);
-	    return false;
+	    return iterations;
 	 }
 	
 	
