@@ -7,6 +7,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import java.text.NumberFormat;
+import java.util.Observer;
+import java.util.Observable;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -16,8 +18,10 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
-public class FracMainView extends JFrame {
-    
+import oop.ue05.FracModel;
+
+public class FracMainView extends JFrame implements Observer {
+
     /////////////////////////////// PUBLIC ///////////////////////////////////////
 
     public static void main(String[] args) {
@@ -25,16 +29,16 @@ public class FracMainView extends JFrame {
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
-                FracMainView ex = new FracMainView();
-                ex.setVisible(true);
+                //FracMainView ex = new FracMainView();
+                //ex.setVisible(true);
             }
         });
     }
 
     /* ============================ LIFECYCLE ================================= */
 
-    public FracMainView() {
-
+    public FracMainView(FracModel model) {
+        this.fracModel = model;
         this.initComponents();
     }
     
@@ -145,10 +149,30 @@ public class FracMainView extends JFrame {
     public void setFracDrawingPanel(FracDrawingPanel fracDrawingPanel) {
         this.fracDrawingPanel = fracDrawingPanel;
     }
+
+    public NumberFormat getNumberFormat() {
+        return this.numberFormat;
+    }
+    
+    public FracMainView setNumberFormat(NumberFormat v) {
+        this.numberFormat = v; return this;
+    }
+
+    public JFormattedTextField getDepth() {
+        return this.depth;
+    }
     
     /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
     
     /* ============================ OPERATIONS ================================ */
+
+    public void update( Observable m, Object o) {
+
+        System.out.println("View update!");
+
+        //this.getFracDrawingPanel().repaint();
+
+    }
     
     /* ============================ INQUIRY =================================== */
             
@@ -168,18 +192,25 @@ public class FracMainView extends JFrame {
     private JFormattedTextField cnum1im = new JFormattedTextField(numberFormat);
     private JFormattedTextField cnum2re = new JFormattedTextField(numberFormat);
     private JFormattedTextField cnum2im = new JFormattedTextField(numberFormat);
+    private JFormattedTextField depth = new JFormattedTextField(numberFormat);
 
     private JLabel label1re = new JLabel("C1 = ");
     private JLabel label1im = new JLabel("i");
     private JLabel label2re = new JLabel("C2 = ");
     private JLabel label2im = new JLabel("i");
+    private JLabel labelDepth = new JLabel("Depth");
 
-    private FracDrawingPanel fracDrawingPanel = new FracDrawingPanel();
+    private FracDrawingPanel fracDrawingPanel = null;
+
+    private FracModel fracModel = null;
 
     /** 
      * main function to configure and arrange all components
      */
     private void initComponents() {
+
+        this.fracDrawingPanel = new FracDrawingPanel(this.fracModel);
+        this.fracModel.addObserver(this.fracDrawingPanel);
 
         this.recalcButton = new JButton("Recalculate");
 
@@ -197,6 +228,7 @@ public class FracMainView extends JFrame {
         this.cnum1im.setColumns(10);
         this.cnum2re.setColumns(10);
         this.cnum2im.setColumns(10);
+        this.depth.setColumns(10);
 
         /* configure event handlers */
         
@@ -222,8 +254,10 @@ public class FracMainView extends JFrame {
         this.buttonContainer.add(this.cnum2re);
         this.buttonContainer.add(this.cnum2im);
         this.buttonContainer.add(this.label2im);
-        this.buttonContainer.add(Box.createRigidArea(new Dimension(100, 0)));
+        this.buttonContainer.add(this.labelDepth);
+        this.buttonContainer.add(this.depth);
 
+        this.buttonContainer.add(Box.createRigidArea(new Dimension(100, 0)));
 
         this.buttonContainer.add(Box.createHorizontalGlue());
 
@@ -240,5 +274,4 @@ public class FracMainView extends JFrame {
         // });
 
     }
-
 }
