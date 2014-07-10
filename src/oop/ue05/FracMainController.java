@@ -11,11 +11,22 @@ import javax.swing.JButton;
 import oop.ue05.FracModel;
 import oop.ue05.FracMainView;
 
+
+/**
+ * main controller which is bound to the view and the model
+ */
+
 public class FracMainController implements Observer, ActionListener {
 
-    /////////////////////////////// PUBLIC ///////////////////////////////////////
-    
-    /* ============================ LIFECYCLE ================================= */
+    FracModel fracModel;
+    FracMainView fracMainView;
+
+
+    /**
+     * constructor for the main controller
+     * @param  view      the associated view
+     * @param  fracModel the model to update
+     */
 
     public FracMainController(FracMainView view, FracModel fracModel) {
         this.fracMainView = view;
@@ -24,21 +35,25 @@ public class FracMainController implements Observer, ActionListener {
         this.init();
     }
 
+    /**
+     * initialize
+     *
+     * this adds some event listeners to the view
+     */
+
     public void init() {
 
         this.fracMainView.getRecalcButton().addActionListener(this);
     }
 
-
-    /* ============================ DEPENDENCIES ============================== */
-    
-    /* ============================ ACCESS ==================================== */
-    
-    /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
-    
-    /* ============================ OPERATIONS ================================ */
-
-    /* ============================ EVENTS ==================================== */
+    /**
+     * event listener for the recalc button click
+     * 
+     * it receives the values from the input fields and sets them on the
+     * model. It also messages the model to recalculate the data
+     *
+     * @param e The event object
+     */
 
     public void actionPerformed(ActionEvent e) {
         Number dn1r = 0.0, dn1i = 0.0, dn2r = 0.0, dn2i = 0.0, ddepth = 0.0;
@@ -77,19 +92,14 @@ public class FracMainController implements Observer, ActionListener {
         this.fracModel.calculateFrameBuffer();
     }
 
+    /**
+     * update function
+     */
+
     public void update(Observable o, Object arg) {
 
         System.out.println("FracMainController update!");
 
     }
-    
-    /* ============================ INQUIRY =================================== */
-            
-    /* ============================ OPERATORS ================================= */
-    
-    /////////////////////////////// PRIVATE //////////////////////////////////////
-    
-    FracModel fracModel;
-    FracMainView fracMainView;
 
 }

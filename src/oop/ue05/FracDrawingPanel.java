@@ -27,10 +27,21 @@ import javax.swing.SwingUtilities;
 
 import oop.ue05.FracModel;
 
+
+/**
+ * view class to draw the fractal
+ */
+
 public class FracDrawingPanel extends JPanel implements Observer, ComponentListener {
 
     private FracModel fracModel = null;
 
+    /**
+     * constructor
+     * 
+     * @param  model the model the panel should get its draw data from
+     */
+    
     public FracDrawingPanel(FracModel model) {
         this.fracModel = model;
         this.initComponents();
@@ -56,12 +67,17 @@ public class FracDrawingPanel extends JPanel implements Observer, ComponentListe
         return realSize;
     }
 
+    /**
+     * update function gets called on model update
+     */
     public void update( Observable m, Object o) {
-
         System.out.println("View update received in FracDrawingPanel!, drawing");
-
         this.repaint();
     }
+
+    /*
+     * event handler for component event
+     */
 
     public void componentHidden(ComponentEvent e) {
         System.out.println((e.getComponent().getClass().getName() + " --- Hidden"));
@@ -78,13 +94,18 @@ public class FracDrawingPanel extends JPanel implements Observer, ComponentListe
         System.out.println((e.getComponent().getClass().getName() + " --- Shown"));
     }
     
+    /**
+     * initialize components
+     */
+    
     private void initComponents() {
         this.setOpaque(true);
         this.setBackground(Color.BLACK);  
     }
     
     /**
-     * method draws points into the given graphics object
+     * main function to draw the screen from the model's framebuffer
+     * 
      */
     
     private void doDrawing(Graphics g) {
@@ -112,21 +133,11 @@ public class FracDrawingPanel extends JPanel implements Observer, ComponentListe
                 }
             }            
         }
-
-        // for (int i = 0; i <= 1000; i++) {
-
-        //     Dimension size = getSize();
-        //     Insets insets = getInsets();
-
-        //     int w = size.width - insets.left - insets.right;
-        //     int h = size.height - insets.top - insets.bottom;
-
-        //     Random r = new Random();
-        //     int x = Math.abs(r.nextInt()) % w;
-        //     int y = Math.abs(r.nextInt()) % h;
-        //     g2d.drawLine(x, y, x, y);
-        // }
     }
+
+    /**
+     * overwritten method to control component painting
+     */
 
     @Override
     public void paintComponent(Graphics g) {

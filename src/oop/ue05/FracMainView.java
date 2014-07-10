@@ -22,8 +22,10 @@ import oop.ue05.FracModel;
 
 public class FracMainView extends JFrame implements Observer {
 
-    /////////////////////////////// PUBLIC ///////////////////////////////////////
-
+    /**
+     * testing method
+     */
+    
     public static void main(String[] args) {
         
         SwingUtilities.invokeLater(new Runnable() {
@@ -35,16 +37,21 @@ public class FracMainView extends JFrame implements Observer {
         });
     }
 
-    /* ============================ LIFECYCLE ================================= */
+    /**
+     * constructor
+     *
+     * binds model
+     */
 
     public FracMainView(FracModel model) {
         this.fracModel = model;
         this.initComponents();
     }
     
-    /* ============================ DEPENDENCIES ============================== */
-    
-    /* ============================ ACCESS ==================================== */
+  
+    /*
+     * getters and setters
+     */
 
     public JPanel getRootPanel() {
         return this.rootPanel;
@@ -162,9 +169,9 @@ public class FracMainView extends JFrame implements Observer {
         return this.depth;
     }
     
-    /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
-    
-    /* ============================ OPERATIONS ================================ */
+    /**
+     * update function to react on model changes
+     */
 
     public void update( Observable m, Object o) {
 
@@ -174,13 +181,6 @@ public class FracMainView extends JFrame implements Observer {
 
     }
     
-    /* ============================ INQUIRY =================================== */
-            
-    /* ============================ OPERATORS ================================= */
-    
-    /////////////////////////////// PRIVATE //////////////////////////////////////
-    
-
     NumberFormat numberFormat =  NumberFormat.getNumberInstance();
 
     private JPanel rootPanel = new JPanel();
@@ -207,6 +207,7 @@ public class FracMainView extends JFrame implements Observer {
     /** 
      * main function to configure and arrange all components
      */
+    
     private void initComponents() {
 
         this.fracDrawingPanel = new FracDrawingPanel(this.fracModel);
